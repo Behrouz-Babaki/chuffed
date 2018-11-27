@@ -1,0 +1,34 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "setup",
+            "type": "shell",
+            "command": "mkdir -p build; cd build ; mkdir -p Debug ; cd Debug ; cmake -DCMAKE_BUILD_TYPE=Debug ../.. ; cmake --build . ; cd .. ; mkdir -p Release ; cd Release ; cmake -DCMAKE_BUILD_TYPE=Release ../.. ; cmake --build . ;",
+            "presentation": {
+                "focus": true,
+                "panel": "new"
+            }
+        },
+        {
+            "label": "test debug",
+            "type": "shell",
+            "command": "cd build/Debug ; cmake --build . --target small ; ./small_dfa",
+            "presentation": {
+                "focus": true,
+                "panel": "new"
+            }
+        },
+        {
+            "label": "test release",
+            "type": "shell",
+            "command": "cd build/Release ; cmake --build . --target small ; ./small_dfa",
+            "presentation": {
+                "focus": true,
+                "panel": "new"
+            }
+        }        
+    ]
+}

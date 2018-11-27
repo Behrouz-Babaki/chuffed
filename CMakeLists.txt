@@ -15,7 +15,7 @@ if(STATIC)
   set(CMAKE_EXE_LINKER_FLAGS "-static")
 endif()
 
-set(DEFAULT_BUILD_TYPE "Release")
+set(DEFAULT_BUILD_TYPE "Debug")
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   message(STATUS "Setting build type to '${DEFAULT_BUILD_TYPE}' as none was specified.")
   set(CMAKE_BUILD_TYPE "${DEFAULT_BUILD_TYPE}" CACHE STRING "Choose the type of build." FORCE)
@@ -35,6 +35,7 @@ if(APPLE)
 endif(APPLE)
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(Threads)
 
@@ -332,6 +333,11 @@ if(ZLIB_FOUND)
     nurse
   )
 endif()
+
+add_executable(small_dfa EXCLUDE_FROM_ALL chuffed/examples/small_dfa.cpp)
+target_link_libraries(small_dfa chuffed ${CMAKE_THREAD_LIBS_INIT})
+add_custom_target(small)
+add_dependencies(small small_dfa)
 
 add_custom_target(examples)
 add_dependencies(examples
